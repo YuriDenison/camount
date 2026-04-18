@@ -27,15 +27,14 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.staticCompositionLocalOf
-import kotlinx.coroutines.launch
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,15 +47,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.denison.camount.Money
-import io.denison.camount.sample.resources.Res
-import io.denison.camount.sample.resources.manrope_medium
-import org.jetbrains.compose.resources.Font
 import io.denison.camount.compose.AmountField
 import io.denison.camount.compose.AmountStyle
 import io.denison.camount.compose.AmountText
 import io.denison.camount.compose.CursorStyle
 import io.denison.camount.compose.FractionPolicy
 import io.denison.camount.compose.ShowSign
+import io.denison.camount.sample.resources.Res
+import io.denison.camount.sample.resources.manrope_medium
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.Font
 import kotlin.random.Random
 
 private val currencies = listOf(
@@ -87,7 +87,10 @@ private val FieldSurface = Color(0xFFEEEFF6)
 private val Placeholder = Color(0xFFB5B8CC)
 
 @Composable
-fun CamountSampleScreen(modifier: Modifier = Modifier) {
+fun CamountSampleScreen(
+  modifier: Modifier = Modifier,
+  viewSection: (@Composable (Money, (Money) -> Unit) -> Unit)? = null,
+) {
   var money by remember { mutableStateOf(Money(1234, 560_000_000, "EUR")) }
 
   val safe = WindowInsets.safeDrawing.asPaddingValues()
@@ -114,6 +117,12 @@ fun CamountSampleScreen(modifier: Modifier = Modifier) {
       ) {
         Header()
         ControlsCard(money = money, onMoneyChange = { money = it })
+
+        if (viewSection != null) {
+          SectionCard(title = "View", subtitle = "classic Android") {
+            viewSection(money) { money = it }
+          }
+        }
 
         SectionCard(title = "AmountText", subtitle = "Compose") {
           AmountTextSection(money = money)

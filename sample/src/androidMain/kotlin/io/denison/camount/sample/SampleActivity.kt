@@ -10,10 +10,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import io.denison.camount.Money
-import io.denison.camount.sample.screen.CamountSampleScreen
+import io.denison.camount.view.AmountChangeListener
 import io.denison.camount.view.AmountEditView
 import io.denison.camount.view.AmountTextView
-import io.denison.camount.view.AmountChangeListener
 import io.denison.camount.view.Money as ViewMoney
 
 class SampleActivity : AppCompatActivity() {

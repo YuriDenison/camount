@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import io.denison.camount.compose.AmountStyle
-import io.denison.camount.compose.CursorStyle
 import io.denison.camount.formatter.AmountConfig
 import io.denison.camount.formatter.AmountFieldPositions
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +28,7 @@ internal class AmountPainter(
 
   private var diff: DiffCalculator = createDiffCalculator(mode, config, style, newCell)
 
-  private var cells: MutableList<SymbolCell> = ArrayList()
+  private var cells: MutableList<SymbolCell> by mutableStateOf(ArrayList())
   private var cursorPositionIndex: Int = -1
   private var cursor: CursorCell? = style.cursor?.let { CursorCell(it, scope) }
 
