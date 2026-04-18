@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Sample" />
+
+    <style name="TextAppearance.Sample.Amount">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#1A1A1A</item>
+        <item name="lineHeight">40sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="TextAppearance.Sample.AmountLarge">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">#1A1A1A</item>
+        <item name="lineHeight">56sp</item>
+        <item name="android:letterSpacing">-0.015</item>
+    </style>
+</resources>

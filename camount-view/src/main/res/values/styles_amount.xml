@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.AmountEditView" parent="">
+        <item name="android:textAppearance">@style/TextAppearance.Subtitle1</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="amount_cursorColor">#4049FF</item>
+        <item name="amount_withFixedZeroNotation">false</item>
+        <item name="amount_fixedFractionTextColor">#E3E3E3</item>
+        <item name="amount_zeroNotationTextColor">#E3E3E3</item>
+        <item name="amount_gradientOrientation">vertical</item>
+        <item name="amount_gradientStartColor">#000000</item>
+        <item name="amount_gradientEndColor">#000000</item>
+    </style>
+</resources>

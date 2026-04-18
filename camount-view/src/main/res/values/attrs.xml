@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AmountTextAppearance">
+        <attr name="android:fontFamily" />
+        <attr name="android:fontFeatureSettings" />
+        <attr name="android:textSize" />
+        <attr name="android:letterSpacing" />
+        <attr name="android:textColor" />
+        <attr name="lineHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="AmountEditView">
+        <attr name="android:textAppearance" />
+        <attr name="android:textColor" />
+        <attr name="android:gravity" />
+        <attr name="amount_withFixedZeroNotation" format="boolean" />
+        <attr name="amount_fixedFractionTextColor" format="color|reference" />
+        <attr name="amount_zeroNotationTextColor" format="color|reference" />
+        <attr name="amount_gradientStartColor" format="color|reference" />
+        <attr name="amount_gradientEndColor" format="color|reference" />
+        <attr name="amount_gradientOrientation" format="integer">
+            <enum name="vertical" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
+        <attr name="amount_enableInputConnection" format="boolean" />
+        <attr name="android:imeOptions" />
+        <attr name="android:cursorVisible" />
+        <attr name="amount_cursorColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AmountTextView">
+        <attr name="android:textAppearance" />
+        <attr name="android:textColor" />
+        <attr name="android:gravity" />
+        <attr name="amount_formatter" format="integer">
+            <enum name="full" value="0" />
+            <enum name="ignoreZeroNanos" value="1" />
+        </attr>
+        <attr name="amount_showSign" format="integer">
+            <enum name="if_negative" value="0" />
+            <enum name="always" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

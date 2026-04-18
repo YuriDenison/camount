@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.SemiBold">
+        <!--        <item name="android:fontFamily">@font/font_manrope_semi_bold</item>-->
+    </style>
+
+    <style name="TextAppearance.Subtitle1" parent="TextAppearance.SemiBold">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">32sp</item>
+        <item name="android:letterSpacing">-.0125</item> <!-- -0.3 -->
+    </style>
+</resources>

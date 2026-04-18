@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="12dp"
+        android:insetBottom="7dp">
+    <selector>
+        <item android:state_enabled="false">
+            <nine-patch
+                    android:alpha="?android:attr/disabledAlpha"
+                    android:src="@drawable/bg_edit_text"
+                    android:tint="#D9DFEC" />
+        </item>
+        <item
+                android:state_focused="false"
+                android:state_pressed="false">
+            <nine-patch
+                    android:src="@drawable/bg_edit_text"
+                    android:tint="#D9DFEC" />
+        </item>
+        <item>
+            <nine-patch
+                    android:src="@drawable/bg_edit_text"
+                    android:tint="#4049FF" />
+        </item>
+    </selector>
+</inset>
