@@ -18,21 +18,18 @@ kotlin {
     }
   }
 
-  listOf(
-    iosArm64(),
-    iosSimulatorArm64()
-  ).forEach { iosTarget ->
-    iosTarget.binaries.framework {
-      baseName = "Camount"
-      isStatic = true
-    }
-  }
+  iosArm64()
+  iosSimulatorArm64()
 
   sourceSets {
     commonMain.dependencies {
-      implementation(libs.compose.runtime)
-      implementation(libs.compose.foundation)
-      implementation(libs.compose.ui)
+      implementation(compose.runtime)
+      implementation(compose.foundation)
+      implementation(compose.ui)
+    }
+    androidMain.dependencies {
+      implementation(libs.androidx.compose.ui.tooling.preview)
+      implementation(libs.androidx.compose.ui.tooling)
     }
   }
 }

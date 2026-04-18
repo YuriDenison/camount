@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   alias(libs.plugins.androidApplication)
+  alias(libs.plugins.composeCompiler)
 }
 
 android {
@@ -24,10 +25,18 @@ android {
       jvmTarget.set(JvmTarget.JVM_11)
     }
   }
+  buildFeatures {
+    compose = true
+  }
   sourceSets["main"].java.srcDirs("src/main/kotlin")
 }
 
 dependencies {
   implementation(project(":camount-view"))
+  implementation(project(":camount"))
   implementation(libs.androidx.appcompat)
+  implementation(libs.androidx.compose.ui)
+  implementation(libs.androidx.compose.foundation)
+  implementation(libs.androidx.compose.material3)
+  implementation(libs.androidx.activity.compose)
 }
