@@ -34,6 +34,5 @@ plugins {
 include(":camount")
 include(":camount-view")
 include(":camount-view-databinding")
-include(":sample")
 include(":samples:shared-compose")
 include(":samples:android")
