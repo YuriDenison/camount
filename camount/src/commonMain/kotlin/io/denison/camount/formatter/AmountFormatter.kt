@@ -19,12 +19,14 @@ internal class AmountFormatter(
 
   private val notation = StringBuilder(config.maximumNotationDigits)
   private var separatorFound = false
+  private var duplicateSeparator = false
   private val fraction = StringBuilder(config.maximumFractionDigits)
   private val resultBuffer = StringBuilder(config.maximumFormattedSymbols)
 
   private fun reset() {
     notation.clear()
     separatorFound = false
+    duplicateSeparator = false
     fraction.clear()
     resultBuffer.clear()
     fixedFractionPosition.clear()
@@ -39,8 +41,11 @@ internal class AmountFormatter(
     val units = money.absoluteValueUnits
       .toString()
       .run {
-        if (length <= config.maximumNotationDigits) this
-        else substring(0, config.maximumNotationDigits)
+        if (length <= config.maximumNotationDigits) {
+          this
+        } else {
+          substring(0, config.maximumNotationDigits)
+        }
       }
 
     resultBuffer.append(units)
@@ -50,8 +55,11 @@ internal class AmountFormatter(
         .toString()
         .padStart(9, config.zero)
         .run {
-          if (length <= config.maximumFractionDigits) this
-          else substring(0, config.maximumFractionDigits)
+          if (length <= config.maximumFractionDigits) {
+            this
+          } else {
+            substring(0, config.maximumFractionDigits)
+          }
         }
 
       if (withFixedFractionLength || nanos.any { it != config.zero }) {
@@ -74,17 +82,17 @@ internal class AmountFormatter(
   ): CharSequence {
     reset()
 
-    return try {
-      append(source, 0, start)
-      append(text, textStart, textEnd, withInputSeparator = true)
-      val afterChangeCount = append(source, end, source.length)
-      result().also {
-        cursorPosition = it.findSelection(afterChangeCount)
-      }
-    } catch (_: DuplicateSeparatorException) {
+    append(source, 0, start)
+    append(text, textStart, textEnd, withInputSeparator = true)
+    val afterChangeCount = append(source, end, source.length)
+
+    if (duplicateSeparator) {
       cursorPosition = end
-      source
+      return source
     }
+    val out = result()
+    cursorPosition = out.findSelection(afterChangeCount)
+    return out
   }
 
   fun cursorPosition(): Int = cursorPosition
@@ -134,6 +142,7 @@ internal class AmountFormatter(
   ): Int {
     var count = 0
     for (index in start until end) {
+      if (duplicateSeparator) break
       val c = source[index]
       count += when {
         withInputSeparator && config.isInputSeparator(c) -> ensureSeparator()
@@ -146,7 +155,10 @@ internal class AmountFormatter(
   }
 
   private fun ensureSeparator(): Int {
-    if (separatorFound) throw DuplicateSeparatorException()
+    if (separatorFound) {
+      duplicateSeparator = true
+      return 0
+    }
     separatorFound = true
     return 1
   }
@@ -172,8 +184,6 @@ internal class AmountFormatter(
     }
     return 0
   }
-
-  private class DuplicateSeparatorException : RuntimeException()
 
   private fun result(): CharSequence {
     resultBuffer.appendNotation()

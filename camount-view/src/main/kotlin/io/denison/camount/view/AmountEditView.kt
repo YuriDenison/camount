@@ -122,8 +122,11 @@ class AmountEditView @JvmOverloads constructor(
     inputFormatter = createInputFormatter(config, attributes.withFixedZeroNotation)
 
     val amount = internalAmount
-    val source = if (!attributes.withFixedZeroNotation && amount.isZero()) ""
-    else inputFormatter.format(amount)
+    val source = if (!attributes.withFixedZeroNotation && amount.isZero()) {
+      ""
+    } else {
+      inputFormatter.format(amount)
+    }
 
     input = createInput(config, inputFormatter, source)
 
@@ -133,7 +136,7 @@ class AmountEditView @JvmOverloads constructor(
   override fun onSaveInstanceState(): Parcelable = SavedState(
     super.onSaveInstanceState() ?: AbsSavedState.EMPTY_STATE,
     input.toString(),
-    currencyCode
+    currencyCode,
   )
 
   override fun onRestoreInstanceState(state: Parcelable?) {
@@ -156,9 +159,7 @@ class AmountEditView @JvmOverloads constructor(
     amountDrawable.draw(canvas)
   }
 
-  override fun verifyDrawable(who: Drawable): Boolean {
-    return amountDrawable == who || super.verifyDrawable(who)
-  }
+  override fun verifyDrawable(who: Drawable): Boolean = amountDrawable == who || super.verifyDrawable(who)
 
   override fun drawableStateChanged() {
     super.drawableStateChanged()
@@ -215,15 +216,11 @@ class AmountEditView @JvmOverloads constructor(
     }
   }
 
-  override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-    return onKeyCode(keyCode) || super.onKeyDown(keyCode, event)
-  }
+  override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean = onKeyCode(keyCode) || super.onKeyDown(keyCode, event)
 
-  override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-    return when (keyCode) {
-      KeyEvent.KEYCODE_ENTER -> handleEnter().asTrue()
-      else -> false
-    }
+  override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean = when (keyCode) {
+    KeyEvent.KEYCODE_ENTER -> handleEnter().asTrue()
+    else -> false
   }
 
   override fun onCheckIsTextEditor() = attributes.enableInputConnection
@@ -258,53 +255,53 @@ class AmountEditView @JvmOverloads constructor(
   fun onKeyCode(code: Int): Boolean = when (code) {
     KeyEvent.KEYCODE_0,
     KeyEvent.KEYCODE_NUMPAD_0,
-      -> appendLast(config.getDigit(0)).asTrue()
+    -> appendLast(config.getDigit(0)).asTrue()
 
     KeyEvent.KEYCODE_1,
     KeyEvent.KEYCODE_NUMPAD_1,
-      -> appendLast(config.getDigit(1)).asTrue()
+    -> appendLast(config.getDigit(1)).asTrue()
 
     KeyEvent.KEYCODE_2,
     KeyEvent.KEYCODE_NUMPAD_2,
-      -> appendLast(config.getDigit(2)).asTrue()
+    -> appendLast(config.getDigit(2)).asTrue()
 
     KeyEvent.KEYCODE_3,
     KeyEvent.KEYCODE_NUMPAD_3,
-      -> appendLast(config.getDigit(3)).asTrue()
+    -> appendLast(config.getDigit(3)).asTrue()
 
     KeyEvent.KEYCODE_4,
     KeyEvent.KEYCODE_NUMPAD_4,
-      -> appendLast(config.getDigit(4)).asTrue()
+    -> appendLast(config.getDigit(4)).asTrue()
 
     KeyEvent.KEYCODE_5,
     KeyEvent.KEYCODE_NUMPAD_5,
-      -> appendLast(config.getDigit(5)).asTrue()
+    -> appendLast(config.getDigit(5)).asTrue()
 
     KeyEvent.KEYCODE_6,
     KeyEvent.KEYCODE_NUMPAD_6,
-      -> appendLast(config.getDigit(6)).asTrue()
+    -> appendLast(config.getDigit(6)).asTrue()
 
     KeyEvent.KEYCODE_7,
     KeyEvent.KEYCODE_NUMPAD_7,
-      -> appendLast(config.getDigit(7)).asTrue()
+    -> appendLast(config.getDigit(7)).asTrue()
 
     KeyEvent.KEYCODE_8,
     KeyEvent.KEYCODE_NUMPAD_8,
-      -> appendLast(config.getDigit(8)).asTrue()
+    -> appendLast(config.getDigit(8)).asTrue()
 
     KeyEvent.KEYCODE_9,
     KeyEvent.KEYCODE_NUMPAD_9,
-      -> appendLast(config.getDigit(9)).asTrue()
+    -> appendLast(config.getDigit(9)).asTrue()
 
     KeyEvent.KEYCODE_PERIOD,
     KeyEvent.KEYCODE_COMMA,
     KeyEvent.KEYCODE_NUMPAD_DOT,
     KeyEvent.KEYCODE_NUMPAD_COMMA,
-      -> appendLast(config.localizedDecimalSeparator).asTrue()
+    -> appendLast(config.localizedDecimalSeparator).asTrue()
 
     KeyEvent.KEYCODE_DEL,
     KeyEvent.KEYCODE_FORWARD_DEL,
-      -> deleteLast().asTrue()
+    -> deleteLast().asTrue()
 
     KeyEvent.KEYCODE_ENTER -> true
     else -> false
@@ -345,7 +342,9 @@ class AmountEditView @JvmOverloads constructor(
     var withFixedZeroNotation = true
     var fixedFractionTextColor: ColorStateList? = null
     var zeroNotationTextColor: ColorStateList? = null
+
     @ColorInt var amountGradientStartColor = Color.BLACK
+
     @ColorInt var amountGradientEndColor = Color.BLACK
     var orientation = AmountGradientOrientation.VERTICAL
     var enableInputConnection = false
@@ -369,8 +368,7 @@ class AmountEditView @JvmOverloads constructor(
         getColor(R.styleable.AmountEditView_amount_gradientStartColor, Color.BLACK)
       amountGradientEndColor =
         getColor(R.styleable.AmountEditView_amount_gradientEndColor, Color.BLACK)
-      orientation = when (getInteger(R.styleable.AmountEditView_amount_gradientOrientation,
-        GRADIENT_ORIENTATION_VERTICAL)) {
+      orientation = when (getInteger(R.styleable.AmountEditView_amount_gradientOrientation, GRADIENT_ORIENTATION_VERTICAL)) {
         GRADIENT_ORIENTATION_HORIZONTAL -> AmountGradientOrientation.HORIZONTAL
         else -> AmountGradientOrientation.VERTICAL
       }
@@ -392,51 +390,51 @@ class AmountEditView @JvmOverloads constructor(
           CursorStyle(
             color = cursorColor,
             height = floor(textAppearance.textSize).toInt(),
-            width = context.resources.dpi(2)
+            width = context.resources.dpi(2),
           )
         },
         defaultSymbolStyle = SymbolStyle(
           textAppearance = textAppearance.maybeOverrideTextColor(defaultTextColor),
-          type = SymbolStyle.StyleType.SHADER
+          type = SymbolStyle.StyleType.SHADER,
         ),
         symbolStyles = mutableMapOf<AmountFormatter.Field, SymbolStyle>().apply {
           zeroNotationTextColor?.let { textColor ->
             this[AmountFormatter.Field.ZeroNotation] = SymbolStyle(
               textAppearance = textAppearance.overrideTextColor(textColor),
-              type = SymbolStyle.StyleType.COLOR
+              type = SymbolStyle.StyleType.COLOR,
             )
           }
 
           fixedFractionTextColor?.let { textColor ->
             this[AmountFormatter.Field.FixedFraction] = SymbolStyle(
               textAppearance = textAppearance.overrideTextColor(textColor),
-              type = SymbolStyle.StyleType.COLOR
+              type = SymbolStyle.StyleType.COLOR,
             )
           }
-        }
+        },
       ),
       withFixedZeroNotation = withFixedZeroNotation,
       enableInputConnection = enableInputConnection,
-      imeOptions = imeOptions
+      imeOptions = imeOptions,
     )
   }
 
   private fun createConfig(currencyCode: String) = AmountConfig(
     maximumNotationDigits = 5,
-    decimalFormat = defaultDecimalFormat(currencyCode)
+    decimalFormat = defaultDecimalFormat(currencyCode),
   )
 
   private fun createAmountDrawable(config: AmountConfig, style: AmountDrawableStyle) =
     AmountDrawable(
       config = config,
       style = style,
-      animation = AmountDrawableAnimation.EDIT
+      animation = AmountDrawableAnimation.EDIT,
     ).also {
       it.setBounds(
         paddingLeft,
         paddingTop,
         width - paddingRight,
-        height - paddingBottom
+        height - paddingBottom,
       )
       it.state = drawableState
       it.setCursorVisible(isFocused)
@@ -484,7 +482,7 @@ class AmountEditView @JvmOverloads constructor(
       },
       resolveSize(heightMeasureSpec) {
         amountDrawable.intrinsicHeight + verticalPadding
-      }
+      },
     )
   }
 
@@ -494,7 +492,7 @@ class AmountEditView @JvmOverloads constructor(
       paddingLeft,
       paddingTop,
       w - paddingRight,
-      h - paddingBottom
+      h - paddingBottom,
     )
   }
 
@@ -537,13 +535,13 @@ class AmountEditView @JvmOverloads constructor(
           end = editable.length,
           text = editable,
           textStart = cursorPosition,
-          textEnd = editable.length
+          textEnd = editable.length,
         ),
         fieldPositions = AmountFieldPositions(
           cursorPosition = formatter.cursorPosition,
           fixedFractionPosition = formatter.fixedFractionPosition,
           zeroNotationPosition = formatter.zeroNotationPosition,
-        )
+        ),
       )
     }
 

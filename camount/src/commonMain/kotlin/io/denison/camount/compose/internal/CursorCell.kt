@@ -2,8 +2,10 @@ package io.denison.camount.compose.internal
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.denison.camount.compose.CursorStyle
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +21,7 @@ internal class CursorCell(
   private val style: CursorStyle,
   private val scope: CoroutineScope,
 ) {
+
   private val boundsAnim = BoundsAnimation()
   private val alpha: Animatable<Float, *> = Animatable(0f)
 
@@ -84,7 +87,7 @@ internal class CursorCell(
 }
 
 private fun DrawScope.drawRoundRectCompat(
-  color: androidx.compose.ui.graphics.Color,
+  color: Color,
   topLeft: Offset,
   size: Size,
   cornerRadius: Float,
@@ -94,7 +97,7 @@ private fun DrawScope.drawRoundRectCompat(
     color = color,
     topLeft = topLeft,
     size = size,
-    cornerRadius = androidx.compose.ui.geometry.CornerRadius(cornerRadius, cornerRadius),
+    cornerRadius = CornerRadius(cornerRadius, cornerRadius),
     alpha = alpha,
   )
 }

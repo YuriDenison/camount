@@ -38,7 +38,7 @@ internal class VerticalGradientCalculator(
       y1,
       startColor,
       endColor,
-      Shader.TileMode.CLAMP
+      Shader.TileMode.CLAMP,
     )
   }
 }
@@ -68,7 +68,7 @@ internal class HorizontalGradientCalculator(
       y0,
       startColor,
       endColor,
-      Shader.TileMode.REPEAT
+      Shader.TileMode.REPEAT,
     )
   }
 

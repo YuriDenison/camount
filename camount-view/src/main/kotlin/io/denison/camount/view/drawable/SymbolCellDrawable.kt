@@ -125,8 +125,10 @@ internal class SymbolCellDrawable : Drawable(), Drawable.Callback, AnimatableSym
 
   override fun unscheduleDrawable(who: Drawable, what: Runnable) = unscheduleSelf(what)
 
-  @Deprecated("Deprecated in Java",
-    ReplaceWith("PixelFormat.OPAQUE", "android.graphics.PixelFormat"))
+  @Deprecated(
+    "Deprecated in Java",
+    ReplaceWith("PixelFormat.OPAQUE", "android.graphics.PixelFormat"),
+  )
   override fun getOpacity() = PixelFormat.OPAQUE
 
   private fun newSymbolDrawable(c: Char, style: SymbolStyle) = SymbolDrawable(c, style).also {

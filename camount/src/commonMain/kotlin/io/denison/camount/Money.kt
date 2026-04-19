@@ -1,24 +1,21 @@
 package io.denison.camount
 
+import androidx.compose.runtime.Immutable
 import kotlin.math.absoluteValue
 
+@Immutable
 data class Money(
   val units: Long,
   val nanos: Int,
   val currencyCode: String,
 ) : Comparable<Money> {
-
   override fun compareTo(other: Money): Int {
-    val thisNanos = this.units * 1_000_000_000 + this.nanos
-    val thatNanos = other.units * 1_000_000_000 + other.nanos
-    return when {
-      thisNanos > thatNanos -> 1
-      thisNanos == thatNanos -> 0
-      else -> -1
-    }
+    val unitsCmp = units.compareTo(other.units)
+    return if (unitsCmp != 0) unitsCmp else nanos.compareTo(other.nanos)
   }
 
-  fun isPositive(): Boolean = units > 0 && nanos >= 0 || units >= 0 && nanos > 0
+  fun isPositive(): Boolean = units > 0 || (units == 0L && nanos > 0)
+
   fun isZero(): Boolean = units == 0L && nanos == 0
 
   companion object {

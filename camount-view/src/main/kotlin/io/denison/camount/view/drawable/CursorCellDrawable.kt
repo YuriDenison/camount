@@ -24,8 +24,9 @@ internal class CursorCellDrawable(
   roundedRectDrawable(
     color = style.color,
     radiusPx = (style.width / 2).coerceAtLeast(1),
-  )
-), AnimatableSymbol {
+  ),
+),
+  AnimatableSymbol {
 
   private lateinit var debugPaint: Paint
 

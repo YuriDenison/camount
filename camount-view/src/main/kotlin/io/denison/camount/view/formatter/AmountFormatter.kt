@@ -28,10 +28,13 @@ internal class AmountFormatter(
         }
       }
     }
-    return if (sanitized.isBlank()) null
-    else runCatching { BigDecimal(sanitized) }
-      .onFailure { Log.e("AmountFormatter", "Error parse $raw", it) }
-      .getOrNull()
+    return if (sanitized.isBlank()) {
+      null
+    } else {
+      runCatching { BigDecimal(sanitized) }
+        .onFailure { Log.e("AmountFormatter", "Error parse $raw", it) }
+        .getOrNull()
+    }
   }
 
   val fixedFractionPosition = FieldPosition(Field.FixedFraction)
@@ -62,8 +65,11 @@ internal class AmountFormatter(
     val units = money.absoluteValueUnits
       .toString()
       .run {
-        if (length <= config.maximumNotationDigits) this
-        else substring(0, config.maximumNotationDigits)
+        if (length <= config.maximumNotationDigits) {
+          this
+        } else {
+          substring(0, config.maximumNotationDigits)
+        }
       }
 
     resultBuffer.append(units)
@@ -73,8 +79,11 @@ internal class AmountFormatter(
         .toString()
         .padStart(9, config.zero)
         .run {
-          if (length <= config.maximumFractionDigits) this
-          else substring(0, config.maximumFractionDigits)
+          if (length <= config.maximumFractionDigits) {
+            this
+          } else {
+            substring(0, config.maximumFractionDigits)
+          }
         }
 
       if (withFixedFractionLength || nanos.any { it != config.zero }) {

@@ -9,4 +9,16 @@ plugins {
   alias(libs.plugins.kotlinAndroid) apply false
   alias(libs.plugins.kotlinMultiplatform) apply false
   alias(libs.plugins.kotlinParcelize) apply false
+  alias(libs.plugins.ktlint) apply false
+}
+
+subprojects {
+  apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
+
+  configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    android.set(false)
+    filter {
+      exclude { it.file.path.contains("/build/") }
+    }
+  }
 }

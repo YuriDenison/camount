@@ -16,15 +16,16 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
-  kotlin {
-    compilerOptions {
-      jvmTarget.set(JvmTarget.JVM_11)
-    }
-  }
   buildFeatures {
     dataBinding = true
   }
   sourceSets["main"].java.srcDirs("src/main/kotlin")
+}
+
+kotlin {
+  compilerOptions {
+    jvmTarget.set(JvmTarget.JVM_11)
+  }
 }
 
 dependencies {

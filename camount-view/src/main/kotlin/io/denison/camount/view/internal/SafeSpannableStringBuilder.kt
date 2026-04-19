@@ -37,9 +37,7 @@ internal open class SafeSpannableStringBuilder @JvmOverloads constructor(
     text: CharSequence,
     @IntRange(from = 0L) textStart: Int,
     @IntRange(from = 0L) textEnd: Int,
-  ): SpannableStringBuilder {
-    return super.replace(start, end, text, textStart, textEnd)
-  }
+  ): SpannableStringBuilder = super.replace(start, end, text, textStart, textEnd)
 
   @CallSuper
   override fun setSpan(what: Any?, start: Int, end: Int, flags: Int) {

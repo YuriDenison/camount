@@ -99,9 +99,9 @@ class AmountTextView @JvmOverloads constructor(
       cursorStyle = null,
       defaultSymbolStyle = SymbolStyle(
         textAppearance = textAppearance,
-        type = SymbolStyle.StyleType.COLOR
+        type = SymbolStyle.StyleType.COLOR,
       ),
-      symbolStyles = emptyMap()
+      symbolStyles = emptyMap(),
     )
     config = createConfig(currencyCode)
     formatter = createFormatter(config)
@@ -114,9 +114,7 @@ class AmountTextView @JvmOverloads constructor(
     amountDrawable.draw(canvas)
   }
 
-  override fun verifyDrawable(who: Drawable): Boolean {
-    return amountDrawable == who || super.verifyDrawable(who)
-  }
+  override fun verifyDrawable(who: Drawable): Boolean = amountDrawable == who || super.verifyDrawable(who)
 
   override fun drawableStateChanged() {
     super.drawableStateChanged()
@@ -133,7 +131,7 @@ class AmountTextView @JvmOverloads constructor(
       },
       resolveSize(heightMeasureSpec) {
         amountDrawable.intrinsicHeight + verticalPadding
-      }
+      },
     )
   }
 
@@ -143,7 +141,7 @@ class AmountTextView @JvmOverloads constructor(
       paddingLeft,
       paddingTop,
       w - paddingRight,
-      h - paddingBottom
+      h - paddingBottom,
     )
   }
 
@@ -151,13 +149,13 @@ class AmountTextView @JvmOverloads constructor(
     AmountDrawable(
       config = config,
       style = style,
-      animation = AmountDrawableAnimation.LEVENSHTEIN
+      animation = AmountDrawableAnimation.LEVENSHTEIN,
     ).also {
       it.setBounds(
         paddingLeft,
         paddingTop,
         width - paddingRight,
-        height - paddingBottom
+        height - paddingBottom,
       )
       it.callback = this
       it.state = drawableState
@@ -165,7 +163,7 @@ class AmountTextView @JvmOverloads constructor(
 
   private fun createConfig(currencyCode: String) = AmountConfig(
     maximumNotationDigits = 5,
-    decimalFormat = defaultDecimalFormat(currencyCode)
+    decimalFormat = defaultDecimalFormat(currencyCode),
   )
 
   private fun createFormatter(config: AmountConfig): AmountFormatter {

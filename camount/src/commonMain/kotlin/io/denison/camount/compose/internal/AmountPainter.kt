@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import io.denison.camount.compose.AmountStyle
+import io.denison.camount.compose.HorizontalAlignment
 import io.denison.camount.formatter.AmountConfig
 import io.denison.camount.formatter.AmountFieldPositions
 import kotlinx.coroutines.CoroutineScope
@@ -14,13 +15,13 @@ import kotlin.math.max
 
 internal class AmountPainter(
   private val measurer: TextMeasurer,
-  style: AmountStyle,
+  private var style: AmountStyle,
   private val mode: DiffMode,
-  config: AmountConfig,
+  private var config: AmountConfig,
   private val scope: CoroutineScope,
 ) {
-  private var style: AmountStyle = style
-  private var config: AmountConfig = config
+
+  private var alignment: HorizontalAlignment = HorizontalAlignment.Center
 
   private val newCell: () -> SymbolCell = {
     SymbolCell(measurer, this.style, scope).also { it.setDuration(DIFF_ANIMATION_DURATION_MS) }
@@ -40,15 +41,21 @@ internal class AmountPainter(
   var intrinsicHeight: Float by mutableStateOf(0f)
     private set
 
-  fun updateStyle(newStyle: AmountStyle, newConfig: AmountConfig) {
+  fun updateStyle(newStyle: AmountStyle, newConfig: AmountConfig, newAlignment: HorizontalAlignment) {
     val cursorStyleChanged = newStyle.cursor != style.cursor
     val configChanged = newConfig != config
+    val styleChanged = newStyle != style
+    val alignmentChanged = newAlignment != alignment
     style = newStyle
+    alignment = newAlignment
     if (configChanged) config = newConfig
     if (cursorStyleChanged) {
       cursor = newStyle.cursor?.let { CursorCell(it, scope) }
     }
-    diff = createDiffCalculator(mode, config, style, newCell)
+    if (configChanged || styleChanged) {
+      diff = createDiffCalculator(mode, config, style, newCell)
+    }
+    if (alignmentChanged) layout()
   }
 
   fun setText(text: CharSequence, positions: AmountFieldPositions) {
@@ -100,25 +107,28 @@ internal class AmountPainter(
       visibleHeight = max(visibleHeight, cursorH)
     }
 
-    val scale: Float = if (containerWidth < visibleWidth && visibleWidth > 0f) {
-      containerWidth / visibleWidth
-    } else 1f
-
+    val scale: Float = if (containerWidth < visibleWidth && visibleWidth > 0f) containerWidth / visibleWidth else 1f
     val scaledWidth = visibleWidth * scale
     val scaledHeight = visibleHeight * scale
 
     val top = (containerHeight - scaledHeight) / 2f
-    var left = (containerWidth - scaledWidth) / 2f
+    var left = when (alignment) {
+      HorizontalAlignment.Start -> 0f
+      HorizontalAlignment.Center -> (containerWidth - scaledWidth) / 2f
+      HorizontalAlignment.End -> containerWidth - scaledWidth
+    }
 
     var cursorLeft = left
+    var visibleIndex = 0
 
-    for ((i, cell) in cells.withIndex()) {
+    for (cell in cells) {
       if (!cell.isVisible) continue
       val w = cell.intrinsicWidth * scale
       val h = cell.intrinsicHeight * scale
       cell.setTargetBounds(left, top, w, h)
       left += w
-      if (i + 1 == cursorPositionIndex) cursorLeft = left
+      visibleIndex++
+      if (visibleIndex == cursorPositionIndex) cursorLeft = left
     }
 
     if (cursor != null && cursorStyle != null) {
@@ -140,9 +150,7 @@ internal class AmountPainter(
 
   fun draw(drawScope: DrawScope) {
     val brush: Brush? = style.gradientBrush
-    for (i in cells.indices.reversed()) {
-      cells[i].draw(drawScope, brush)
-    }
+    for (i in cells.indices.reversed()) cells[i].draw(drawScope, brush)
     cursor?.draw(drawScope)
   }
 }

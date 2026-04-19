@@ -140,7 +140,7 @@ internal class SymbolDrawable(
           invalidateSelf()
         }
       }
-    }
+    },
   )
 
   fun setDuration(value: Long) {
@@ -199,9 +199,11 @@ internal class SymbolDrawable(
       )
     } else {
       StaticLayout.Builder.obtain(
-        symbol, 0, symbol.length,
+        symbol,
+        0,
+        symbol.length,
         symbolPaint,
-        outerWidth
+        outerWidth,
       )
         .setAlignment(alignment)
         .setLineSpacing(spacingAdd, spacingMult)
@@ -211,8 +213,10 @@ internal class SymbolDrawable(
     }
   }
 
-  @Deprecated("Deprecated in Java",
-    ReplaceWith("PixelFormat.TRANSLUCENT", "android.graphics.PixelFormat"))
+  @Deprecated(
+    "Deprecated in Java",
+    ReplaceWith("PixelFormat.TRANSLUCENT", "android.graphics.PixelFormat"),
+  )
   override fun getOpacity() = PixelFormat.TRANSLUCENT
 }
 

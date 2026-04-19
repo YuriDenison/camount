@@ -1,15 +1,15 @@
 package io.denison.camount.compose
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import io.denison.camount.Money
 import io.denison.camount.compose.internal.AmountPainter
@@ -30,6 +30,7 @@ fun AmountText(
   showSign: ShowSign = ShowSign.IfNegative,
   fractionPolicy: FractionPolicy = FractionPolicy.Fixed,
   maximumNotationDigits: Int = 5,
+  alignment: HorizontalAlignment = HorizontalAlignment.Center,
 ) {
   val measurer = rememberTextMeasurer()
   val scope = rememberCoroutineScope()
@@ -57,9 +58,9 @@ fun AmountText(
     )
   }
 
-  SideEffect {
-    painter.setDensity(density.density)
-    painter.updateStyle(style, config)
+  SideEffect { painter.setDensity(density.density) }
+  LaunchedEffect(painter, style, config, alignment) {
+    painter.updateStyle(style, config, alignment)
   }
 
   val rendered = remember(amount, formatter, showSign) {
@@ -76,19 +77,18 @@ fun AmountText(
     painter.setText(rendered, AmountFieldPositions.Empty)
   }
 
-  BoxWithConstraints(modifier = modifier) {
-    val cw = if (constraints.hasBoundedWidth) constraints.maxWidth.toFloat() else painter.intrinsicWidth
-    val ch = if (constraints.hasBoundedHeight) constraints.maxHeight.toFloat() else painter.intrinsicHeight
-    SideEffect { painter.setBounds(cw, ch) }
-    Canvas(modifier = Modifier.matchParentSize()) {
-      painter.draw(this)
-    }
+  Canvas(
+    modifier = modifier.onSizeChanged {
+      painter.setBounds(it.width.toFloat(), it.height.toFloat())
+    },
+  ) {
+    painter.draw(this)
   }
 }
 
 @Composable
 internal fun defaultAmountStyle(): AmountStyle = AmountStyle(
-  textStyle = androidx.compose.ui.text.TextStyle.Default,
+  textStyle = TextStyle.Default,
 )
 
 internal fun createConfig(currencyCode: String, maximumNotationDigits: Int): AmountConfig {

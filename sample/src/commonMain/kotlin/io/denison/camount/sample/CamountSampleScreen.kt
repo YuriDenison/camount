@@ -111,7 +111,7 @@ fun CamountSampleScreen(
               end = 20.dp,
               top = safe.calculateTopPadding() + 16.dp,
               bottom = safe.calculateBottomPadding() + 24.dp,
-            )
+            ),
           ),
         verticalArrangement = Arrangement.spacedBy(20.dp),
       ) {

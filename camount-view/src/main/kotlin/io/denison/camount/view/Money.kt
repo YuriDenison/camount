@@ -31,11 +31,6 @@ data class Money(
     nanos == 0 && ignoreZeroNanos -> units.toBigDecimal()
     else -> units.toBigDecimal() + nanos.toBigDecimal().movePointLeft(NANOS_SCALE)
   }
-
-  companion object {
-
-    fun zero(currencyCode: String) = Money(0, 0, currencyCode)
-  }
 }
 
 val MoneyStub = Money(0, 0, "")
@@ -44,8 +39,10 @@ fun BigDecimal.toMoney(currencyCode: String, scale: Int = 2): Money {
   val split = divideAndRemainder(BigDecimal.ONE)
   return Money(
     units = split[0].toLong(),
-    nanos = split[1].setScale(scale.coerceAtMost(NANOS_SCALE), RoundingMode.HALF_UP)
-      .movePointRight(NANOS_SCALE).toInt(),
+    nanos = split[1]
+      .setScale(scale.coerceAtMost(NANOS_SCALE), RoundingMode.HALF_UP)
+      .movePointRight(NANOS_SCALE)
+      .toInt(),
     currencyCode = currencyCode,
   )
 }

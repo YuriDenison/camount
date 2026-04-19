@@ -5,13 +5,13 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
 internal class AmountConfig(
-  @IntRange(from = 1) val maximumNotationDigits: Int,
+  @param:IntRange(from = 1) val maximumNotationDigits: Int,
   decimalFormat: DecimalFormat,
 ) {
 
   private val decimalFormatSymbols: DecimalFormatSymbols = decimalFormat.decimalFormatSymbols
 
-  val decimalSeparator: Char get() = decimalSeparatorChars[0]
+  val decimalSeparator: Char get() = DECIMAL_SEPARATOR_CHARS[0]
   val zero: Char get() = digitChars[0]
 
   val localizedDecimalSeparator: Char = decimalFormatSymbols.monetaryDecimalSeparator
@@ -24,14 +24,14 @@ internal class AmountConfig(
   val maximumFractionDigits: Int = decimalFormat.maximumFractionDigits
 
   val maximumFormattedSymbols: Int = localizedPrefix.length +
-          maximumNotationDigits +
-          (if (groupingSize == 0) 0 else (maximumNotationDigits - 1) / groupingSize) +
-          1 + maximumFractionDigits +
-          localizedSuffix.length
+    maximumNotationDigits +
+    (if (groupingSize == 0) 0 else (maximumNotationDigits - 1) / groupingSize) +
+    1 + maximumFractionDigits +
+    localizedSuffix.length
 
   fun isDigit(c: Char) = digitChars.contains(c)
   fun isZero(c: Char) = zero == c
-  fun isInputSeparator(c: Char) = decimalSeparatorChars.contains(c)
+  fun isInputSeparator(c: Char) = DECIMAL_SEPARATOR_CHARS.contains(c)
   fun isDecimalSeparator(c: Char) = localizedDecimalSeparator == c
   fun isGroupingSeparator(c: Char) = groupingSize > 0 && localizedGroupingSeparator == c
 
@@ -39,7 +39,7 @@ internal class AmountConfig(
 
   private companion object {
 
-    private const val decimalSeparatorChars = ".,"
+    private const val DECIMAL_SEPARATOR_CHARS = ".,"
     private val digitChars = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
   }
 }

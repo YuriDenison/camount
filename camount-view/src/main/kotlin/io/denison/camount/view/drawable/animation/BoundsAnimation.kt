@@ -51,7 +51,6 @@ internal class BoundsAnimation(private val target: Drawable) {
 }
 
 private class BoundsProperty : Property<Drawable, Rect>(Rect::class.java, "bounds") {
-
   private val rect = Rect()
 
   override fun get(target: Drawable): Rect {

@@ -28,7 +28,7 @@ internal class BlinkAnimation(private val target: Drawable) {
           target.invalidateSelf()
         }
       }
-    }
+    },
   )
 
   private val blinkTime get() = SystemClock.uptimeMillis() + BLINK_DURATION

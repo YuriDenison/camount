@@ -14,11 +14,10 @@ internal class AmountLevenshteinDiffCalculator(
 ) : AmountDiffCalculator {
 
   private val maxLength = config.localizedPrefix.length +
-          config.maximumNotationDigits +
-          (if (config.groupingSize == 0) 0 else (config.maximumNotationDigits - config.groupingSize).coerceAtLeast(
-            0)) +
-          1 + config.maximumFractionDigits +
-          config.localizedSuffix.length
+    config.maximumNotationDigits +
+    (if (config.groupingSize == 0) 0 else (config.maximumNotationDigits - config.groupingSize).coerceAtLeast(0)) +
+    1 + config.maximumFractionDigits +
+    config.localizedSuffix.length
 
   private val pool = Pools.SimplePool<ArrayList<SymbolCellDrawable>>(2).apply {
     release(ArrayList(maxLength))
@@ -164,6 +163,5 @@ internal class AmountLevenshteinDiffCalculator(
     cell.replace(char, style.defaultSymbolStyle)
   }
 
-  private fun Char.isSeparator() =
-    config.isDecimalSeparator(this) || config.isGroupingSeparator(this)
+  private fun Char.isSeparator() = config.isDecimalSeparator(this) || config.isGroupingSeparator(this)
 }

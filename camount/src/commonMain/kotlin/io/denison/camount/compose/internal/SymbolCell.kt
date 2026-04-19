@@ -29,6 +29,7 @@ internal class SymbolCell(
   private val style: AmountStyle,
   private val scope: CoroutineScope,
 ) {
+
   var field: AmountField? = null
     private set
 
@@ -118,8 +119,11 @@ internal class SymbolCell(
           val pivotY = layer.baseline
 
           scale(selfScale, selfScale, pivot = Offset(pivotX, pivotY)) {
-            val effectiveBrush = if (brush != null && layer.field == null && isGradientTarget(layer.char)) brush
-            else SolidColor(layer.style.color)
+            val effectiveBrush = if (brush != null && layer.field == null && isGradientTarget(layer.char)) {
+              brush
+            } else {
+              SolidColor(layer.style.color)
+            }
             drawText(
               textLayoutResult = layer.layout,
               brush = effectiveBrush,
@@ -140,6 +144,7 @@ private class SymbolLayer(
   val style: TextStyle,
   val layout: TextLayoutResult,
 ) {
+
   val width: Float = layout.size.width.toFloat()
   val height: Float = layout.size.height.toFloat()
   val baseline: Float = layout.getLineBaseline(0)
@@ -164,6 +169,7 @@ private class SymbolLayer(
 }
 
 internal class BoundsAnimation {
+
   private val leftAnim = Animatable(0f)
   private val topAnim = Animatable(0f)
   private val widthAnim = Animatable(0f)
@@ -175,8 +181,10 @@ internal class BoundsAnimation {
   val height: Float get() = heightAnim.value
 
   val isRunning: Boolean
-    get() = leftAnim.isRunning || topAnim.isRunning ||
-      widthAnim.isRunning || heightAnim.isRunning
+    get() = leftAnim.isRunning ||
+      topAnim.isRunning ||
+      widthAnim.isRunning ||
+      heightAnim.isRunning
 
   fun setTarget(
     targetLeft: Float,

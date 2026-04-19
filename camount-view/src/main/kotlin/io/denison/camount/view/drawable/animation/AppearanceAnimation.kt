@@ -10,8 +10,11 @@ internal class AppearanceAnimation(private val animator: ValueAnimator) {
       strategy = if (show) appear else disappear
     }
 
-    if (show) appear()
-    else disappear()
+    if (show) {
+      appear()
+    } else {
+      disappear()
+    }
 
     if (animator.isPaused) {
       animator.resume()
@@ -53,7 +56,9 @@ internal class AppearanceAnimation(private val animator: ValueAnimator) {
     override fun appear() {
       if (animator.isRunning) {
         animator.reverse()
-      } else animator.start()
+      } else {
+        animator.start()
+      }
     }
   }
 

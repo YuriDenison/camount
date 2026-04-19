@@ -4,14 +4,14 @@ package io.denison.camount.view.internal
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.content.res.TypedArray
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 
-internal inline fun <T : Any> given(condition: Boolean, body: () -> T?): T? =
-  if (condition) body() else null
+internal inline fun <T : Any> given(condition: Boolean, body: () -> T?): T? = if (condition) body() else null
 
 internal inline fun Any?.asTrue(): Boolean = true
 internal inline fun Any?.asFalse(): Boolean = false
@@ -60,8 +60,7 @@ internal inline fun resolveSize(measureSpec: Int, size: () -> Int): Int {
   }
 }
 
-internal fun android.content.res.Resources.dpi(dp: Int): Int =
-  (dp * displayMetrics.density).toInt()
+internal fun Resources.dpi(dp: Int): Int = (dp * displayMetrics.density).toInt()
 
 internal inline fun <T> List<T>.forEachReversedFast(action: (T) -> Unit) {
   for (index in size - 1 downTo 0) {

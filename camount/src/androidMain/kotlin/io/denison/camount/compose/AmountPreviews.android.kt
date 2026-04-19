@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,8 +27,7 @@ import io.denison.camount.Money
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark theme")
 @Composable
 private fun AmountTextPreview() {
-  val nightMode = (androidx.compose.ui.platform.LocalConfiguration.current.uiMode and
-    Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+  val nightMode = (LocalConfiguration.current.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
   val background = if (nightMode) Color(0xFF121212) else Color.White
   val foreground = if (nightMode) Color(0xFFEDEDED) else Color(0xFF1A1A1A)
 
@@ -64,8 +64,7 @@ private fun AmountTextPreview() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark theme")
 @Composable
 private fun AmountFieldPreview() {
-  val nightMode = (androidx.compose.ui.platform.LocalConfiguration.current.uiMode and
-    Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+  val nightMode = (LocalConfiguration.current.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
   val background = if (nightMode) Color(0xFF121212) else Color.White
   val foreground = if (nightMode) Color(0xFFEDEDED) else Color(0xFF1A1A1A)
 

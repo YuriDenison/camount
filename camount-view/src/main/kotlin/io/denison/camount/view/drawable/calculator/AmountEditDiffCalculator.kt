@@ -14,13 +14,12 @@ internal class AmountEditDiffCalculator(
 ) : AmountDiffCalculator {
 
   private val maxLength = config.localizedPrefix.length +
-          config.maximumNotationDigits +
-          (if (config.groupingSize == 0) 0 else (config.maximumNotationDigits - config.groupingSize).coerceAtLeast(
-            0)) +
-          1 +
-          1 +
-          config.maximumFractionDigits +
-          config.localizedSuffix.length
+    config.maximumNotationDigits +
+    (if (config.groupingSize == 0) 0 else (config.maximumNotationDigits - config.groupingSize).coerceAtLeast(0)) +
+    1 +
+    1 +
+    config.maximumFractionDigits +
+    config.localizedSuffix.length
 
   private val pool = Pools.SimplePool<ArrayList<SymbolCellDrawable>>(2).apply {
     release(ArrayList(maxLength))

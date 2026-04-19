@@ -25,11 +25,14 @@ internal actual fun currencyInfo(currencyCode: String): CurrencyInfo {
   )
 }
 
+// ICU wraps currency prefixes/suffixes with invisible bidi control chars on Android.
+// They break per-symbol diffing and cursor/prefix-length math, so strip them here.
 private fun String.sanitizeBidi(): String = buildString(length) {
   for (c in this@sanitizeBidi) {
     when (c.code) {
       0x200E, 0x200F, 0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
-      0x2066, 0x2067, 0x2068, 0x2069 -> Unit
+      0x2066, 0x2067, 0x2068, 0x2069,
+      -> Unit
       else -> append(c)
     }
   }

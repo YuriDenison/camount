@@ -29,7 +29,7 @@ internal class DefaultBoundsCalculator(
 
   private val gradientCalculator = style.gradientOrientation.calculator(
     startColor = style.gradientStartColor,
-    endColor = style.gradientEndColor
+    endColor = style.gradientEndColor,
   )
 
   override fun calculateBounds(
@@ -70,7 +70,7 @@ internal class DefaultBoundsCalculator(
         width,
         (visibleSymbolsHeight * symbolScale).toInt(),
         bounds,
-        calculationRect
+        calculationRect,
       )
     } else {
       symbolScale = 1f
@@ -80,7 +80,7 @@ internal class DefaultBoundsCalculator(
         visibleSymbolsWidth,
         visibleSymbolsHeight,
         bounds,
-        calculationRect
+        calculationRect,
       )
     }
 

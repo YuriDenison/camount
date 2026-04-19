@@ -8,6 +8,7 @@ import io.denison.camount.formatter.AmountFieldPositions
 internal enum class DiffMode { Edit, Levenshtein }
 
 internal interface DiffCalculator {
+
   fun diff(
     cells: MutableList<SymbolCell>,
     text: CharSequence,
@@ -52,18 +53,12 @@ internal class EditDiffCalculator(
   private val newCell: () -> SymbolCell,
 ) : DiffCalculator {
 
-  private val maxLength = config.prefix.length +
-    config.maximumNotationDigits +
-    (if (config.groupingSize == 0) 0 else (config.maximumNotationDigits - config.groupingSize).coerceAtLeast(0)) +
-    1 + 1 + config.maximumFractionDigits +
-    config.suffix.length
-
   override fun diff(
     cells: MutableList<SymbolCell>,
     text: CharSequence,
     positions: AmountFieldPositions,
   ): MutableList<SymbolCell> {
-    val result = ArrayList<SymbolCell>(maxLength)
+    val result = ArrayList<SymbolCell>(config.maximumFormattedSymbols)
 
     var textIndex = 0
 
@@ -144,7 +139,7 @@ internal class EditDiffCalculator(
       retry
     }
 
-    val restCount = minOf(text.length, maxLength)
+    val restCount = minOf(text.length, config.maximumFormattedSymbols)
     while (textIndex < restCount) {
       val s = text[textIndex]
       val field = fieldAt(positions, textIndex)
@@ -237,33 +232,33 @@ internal class LevenshteinDiffCalculator(
           val from = cells[i - 1].currentChar
           val to = text[j - 1]
 
-          when {
-            replaceCost <= insertCost && replaceCost <= deleteCost -> {
-              when {
-                from.isSeparator() && !to.isSeparator() -> {
-                  i -= 1
-                  cells[i].delete()
-                }
-                to.isSeparator() && !from.isSeparator() -> {
-                  j -= 1
-                  cells.insert(i, to, fieldAt(positions, j))
-                }
-                else -> {
-                  i -= 1
-                  j -= 1
-                  cells[i].replace(to, fieldAt(positions, j))
-                }
+          val minCost = minOf(replaceCost, insertCost, deleteCost)
+          when (minCost) {
+            replaceCost -> when {
+              from.isSeparator() && !to.isSeparator() -> {
+                i -= 1
+                cells[i].delete()
+              }
+
+              to.isSeparator() && !from.isSeparator() -> {
+                j -= 1
+                cells.insert(i, to, fieldAt(positions, j))
+              }
+
+              else -> {
+                i -= 1
+                j -= 1
+                cells[i].replace(to, fieldAt(positions, j))
               }
             }
-            insertCost <= replaceCost && insertCost <= deleteCost -> {
+            insertCost -> {
               j -= 1
               cells.insert(i, to, fieldAt(positions, j))
             }
-            deleteCost <= replaceCost && deleteCost <= insertCost -> {
+            else -> {
               i -= 1
               cells[i].delete()
             }
-            else -> error("never happen")
           }
         }
       }
@@ -276,6 +271,5 @@ internal class LevenshteinDiffCalculator(
     add(index, cell)
   }
 
-  private fun Char.isSeparator(): Boolean =
-    config.isDecimalSeparator(this) || config.isGroupingSeparator(this)
+  private fun Char.isSeparator(): Boolean = config.isDecimalSeparator(this) || config.isGroupingSeparator(this)
 }

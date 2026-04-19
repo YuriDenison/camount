@@ -8,12 +8,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.denison.camount.formatter.AmountField
 
+enum class HorizontalAlignment { Start, Center, End }
+
 @Immutable
 data class CursorStyle(
   val color: Color,
   val width: Dp = 2.dp,
   val heightFraction: Float = 1.0f,
-)
+) {
+  init {
+    require(heightFraction in 0f..1f) { "heightFraction must be in 0f..1f, was $heightFraction" }
+  }
+}
 
 @Immutable
 data class AmountStyle(

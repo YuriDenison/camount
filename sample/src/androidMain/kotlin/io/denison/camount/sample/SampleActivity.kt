@@ -1,10 +1,12 @@
 package io.denison.camount.sample
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
@@ -22,35 +24,39 @@ class SampleActivity : AppCompatActivity() {
     setContentView(
       ComposeView(this).apply {
         setContent {
-          CamountSampleScreen(viewSection = { money, onMoneyChange ->
-            ViewSection(money = money, onMoneyChange = onMoneyChange)
-          })
+          CamountSampleScreen(
+            viewSection = { money, onMoneyChange ->
+              ViewSection(money = money, onMoneyChange = onMoneyChange)
+            },
+          )
         }
-      }
+      },
     )
   }
 }
 
-@androidx.compose.runtime.Composable
+@Composable
 private fun ViewSection(money: Money, onMoneyChange: (Money) -> Unit) {
   Column(
     modifier = Modifier.fillMaxWidth(),
     verticalArrangement = Arrangement.spacedBy(12.dp),
   ) {
     AndroidView(
-      factory = { ctx -> AmountTextView(ctx) },
+      factory = { ctx -> LayoutInflater.from(ctx).inflate(R.layout.view_amount_text, null, false) as AmountTextView },
       update = { it.amount = money.toViewMoney() },
       modifier = Modifier.fillMaxWidth(),
     )
 
     AndroidView(
       factory = { ctx ->
-        AmountEditView(ctx).apply {
-          val listener: AmountChangeListener = { updated ->
-            onMoneyChange(updated.toCommonMoney())
-          }
-          addAmountChangeListener(listener)
+        val view = LayoutInflater
+          .from(ctx)
+          .inflate(R.layout.view_amount_edit, null, false) as AmountEditView
+        val listener: AmountChangeListener = { updated ->
+          onMoneyChange(updated.toCommonMoney())
         }
+        view.addAmountChangeListener(listener)
+        view
       },
       update = { view ->
         val target = money.toViewMoney()

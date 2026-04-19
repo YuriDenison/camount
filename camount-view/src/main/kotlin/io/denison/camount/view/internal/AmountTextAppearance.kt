@@ -34,10 +34,7 @@ internal fun Context.resolveAmountTextAppearance(textAppearanceId: Int): AmountT
     obtainStyledAttributesBlock(textAppearanceId, R.styleable.AmountTextAppearance) {
       val fontResourceId = getResourceId(R.styleable.AmountTextAppearance_android_fontFamily, 0)
       typeface = given(fontResourceId != 0) {
-        runCatching {
-          ResourcesCompat.getFont(this@resolveAmountTextAppearance,
-            fontResourceId)
-        }.getOrNull()
+        runCatching { ResourcesCompat.getFont(this@resolveAmountTextAppearance, fontResourceId) }.getOrNull()
       }
       fontFeatureSettings = getString(R.styleable.AmountTextAppearance_android_fontFeatureSettings)
       textSize = getDimension(R.styleable.AmountTextAppearance_android_textSize, 0f)
