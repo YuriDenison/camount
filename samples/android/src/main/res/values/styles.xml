@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Sample" />
+
+    <style name="Widget.Sample" parent="" />
+
+    <style name="TextAppearance.Sample.Amount">
+        <item name="android:textSize">44sp</item>
+        <item name="android:textColor">#0F1024</item>
+        <item name="lineHeight">52sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="Widget.Sample.AmountTextView">
+        <item name="android:textAppearance">@style/TextAppearance.Sample.Amount</item>
+        <item name="android:textColor">#0F1024</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
+    <style name="Widget.Sample.AmountEditView">
+        <item name="android:textAppearance">@style/TextAppearance.Sample.Amount</item>
+        <item name="android:textColor">#0F1024</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="amount_cursorColor">#4049FF</item>
+        <item name="amount_withFixedZeroNotation">true</item>
+        <item name="amount_fixedFractionTextColor">#B5B8CC</item>
+        <item name="amount_zeroNotationTextColor">#B5B8CC</item>
+        <item name="amount_enableInputConnection">true</item>
+    </style>
+</resources>
