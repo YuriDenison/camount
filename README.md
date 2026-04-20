@@ -2,6 +2,8 @@
 
 An animated currency/amount formatter widget with per-character stack animations, field-aware styling, and a real input pipeline.
 
+**▶ [Live demo (Compose for Web)](https://yuridenison.github.io/camount/)** — the same widget, compiled to Wasm.
+
 The library ships in two flavors that share the same behavior and visual language:
 
 - **Kotlin Multiplatform / Jetpack Compose** — Android, iOS, Desktop (JVM), and Web (Wasm/JS) via `:camount`, plus `:camount-view` / `:camount-view-databinding` for Android Views.
@@ -16,6 +18,7 @@ The library ships in two flavors that share the same behavior and visual languag
 - [`/samples/shared-compose`](./samples/shared-compose) — cross-platform Compose demo screen reused by Android/iOS/Desktop/Web samples.
 - [`/samples/android`](./samples/android) — Android sample app.
 - [`/samples/desktop`](./samples/desktop) — Desktop (JVM) sample app.
+- [`/samples/web`](./samples/web) — Compose for Web (Wasm/JS) sample — served as the live demo above.
 - [`/samples/ios`](./samples/ios) — iOS sample app (shows both the Compose demo and the native SwiftUI demo side by side).
 
 ## Build and Run — Compose / Kotlin targets
@@ -38,10 +41,20 @@ To produce a native installer (dmg/msi/deb):
 ./gradlew :samples:desktop:packageDistributionForCurrentOS
 ```
 
-### Web (Wasm / JS)
+### Web (Wasm)
+
+Live demo: https://yuridenison.github.io/camount/ (auto-deployed from `main` via [`.github/workflows/deploy-web.yml`](./.github/workflows/deploy-web.yml)).
+
+Run locally:
 
 ```shell
-./gradlew :samples:shared-compose:wasmJsBrowserDevelopmentRun
+./gradlew :samples:web:wasmJsBrowserDevelopmentRun
+```
+
+Produce a static distribution under `samples/web/build/dist/wasmJs/productionExecutable`:
+
+```shell
+./gradlew :samples:web:wasmJsBrowserDistribution
 ```
 
 ### iOS (Compose demo)

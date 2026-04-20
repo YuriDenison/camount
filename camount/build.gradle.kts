@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -25,6 +26,11 @@ kotlin {
     compilerOptions {
       jvmTarget.set(JvmTarget.JVM_11)
     }
+  }
+
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
+    browser()
   }
 
   sourceSets {
