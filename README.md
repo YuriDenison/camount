@@ -1,90 +1,61 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
+# Camount
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform
-  applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the
-      folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part,
-      the [jvmMain](./composeApp/src/jvmMain/kotlin)
-      folder is the appropriate location.
+An animated currency/amount formatter widget with per-character stack animations, field-aware styling, and a real input pipeline.
 
-* [/samples/ios](./samples/ios) contains the iOS sample application. Even if you’re sharing your
-  UI with Compose Multiplatform, you need this entry point for your iOS app. This is also where
-  you should add SwiftUI code for your project.
+The library ships in two flavors that share the same behavior and visual language:
 
-### Build and Run Android Application
+- **Kotlin Multiplatform / Jetpack Compose** — Android, iOS, Desktop (JVM), and Web (Wasm/JS) via `:camount`, plus `:camount-view` / `:camount-view-databinding` for Android Views.
+- **Swift Package (iOS 16+)** — a native iOS port at [`/camount-swift`](./camount-swift) with SwiftUI (`AmountText`, `AmountField`) backed by a Core Animation rendering pipeline. Matches the Compose renderer: per-glyph stack animations, cursor, gradient fills, field-colored placeholder/fraction, Material FastOutSlowIn easing.
 
-To build and run the development version of the Android app, use the run configuration from the run
-widget
-in your IDE’s toolbar or build it directly from the terminal:
+## Repository Layout
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+- [`/camount`](./camount) — core Compose Multiplatform library (common, Android, iOS, JVM, Web).
+- [`/camount-view`](./camount-view) — Android Views binding.
+- [`/camount-view-databinding`](./camount-view-databinding) — Android data-binding adapters.
+- [`/camount-swift`](./camount-swift) — Swift Package (native iOS).
+- [`/samples/shared-compose`](./samples/shared-compose) — cross-platform Compose demo screen reused by Android/iOS/Desktop/Web samples.
+- [`/samples/android`](./samples/android) — Android sample app.
+- [`/samples/ios`](./samples/ios) — iOS sample app (shows both the Compose demo and the native SwiftUI demo side by side).
 
-### Build and Run Desktop (JVM) Application
+## Build and Run — Compose / Kotlin targets
 
-To build and run the development version of the desktop app, use the run configuration from the run
-widget
-in your IDE’s toolbar or run it directly from the terminal:
+### Android
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+```shell
+./gradlew :samples:android:assembleDebug
+```
 
-### Build and Run Web Application
+### Desktop (JVM)
 
-To build and run the development version of the web app, use the run configuration from the run
-widget
-in your IDE's toolbar or run it directly from the terminal:
+The Compose sample screen is shared; wire it into a desktop entry point under `samples/shared-compose` if you want a standalone desktop run.
 
-- for the Wasm target (faster, modern browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-- for the JS target (slower, supports older browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:jsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-      ```
+### Web (Wasm / JS)
 
-### Build and Run iOS Application
+```shell
+./gradlew :samples:shared-compose:wasmJsBrowserDevelopmentRun
+```
 
-To build and run the development version of the iOS app, use the run configuration from the run
-widget
-in your IDE’s toolbar or open the [/samples/ios](./samples/ios) directory in Xcode and run it from there.
+### iOS (Compose demo)
+
+Open [`/samples/ios`](./samples/ios) in Xcode and run the app — the `CmpDemo` tab hosts the Compose-shared screen.
+
+## Build and Run — Native iOS (camount-swift)
+
+`camount-swift` is a Swift Package that can be consumed directly or through the sample app.
+
+- Open [`/samples/ios`](./samples/ios) in Xcode and run — the `NativeDemo` tab hosts `AmountText` / `AmountField` rendered entirely by the Swift pipeline.
+- Or integrate as a Swift package by pointing at `./camount-swift` (`swift-tools-version:5.9`, iOS 16+).
+
+Package tests:
+
+```shell
+cd camount-swift && swift test
+```
+
+## API parity
+
+See [`camount-swift/PARITY.md`](./camount-swift/PARITY.md) for the public-API mapping between the Compose widgets and their Swift counterparts.
 
 ---
 
-Learn more
-about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
-
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack
-channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them
-on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) and [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform).
