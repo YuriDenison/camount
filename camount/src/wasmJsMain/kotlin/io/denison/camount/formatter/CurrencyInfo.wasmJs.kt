@@ -4,8 +4,6 @@ package io.denison.camount.formatter
 
 import kotlin.js.JsAny
 import kotlin.js.JsArray
-import kotlin.js.JsName
-import kotlin.js.definedExternally
 import kotlin.js.get
 
 private external interface IntlNumberFormatPart : JsAny {
@@ -13,20 +11,12 @@ private external interface IntlNumberFormatPart : JsAny {
   val value: String
 }
 
-@JsName("Intl.NumberFormat")
-private external class IntlNumberFormat(
-  locales: JsAny? = definedExternally,
-  options: JsAny? = definedExternally,
-) : JsAny {
-  fun formatToParts(value: Double): JsArray<IntlNumberFormatPart>
-}
-
-private fun currencyOptions(code: String): JsAny =
-  js("({ style: 'currency', currency: code })")
+private fun formatCurrencyParts(code: String, value: Double): JsArray<IntlNumberFormatPart>? =
+  js("new Intl.NumberFormat(undefined, { style: 'currency', currency: code }).formatToParts(value)")
 
 internal actual fun currencyInfo(currencyCode: String): CurrencyInfo {
   val parts = runCatching {
-    IntlNumberFormat(options = currencyOptions(currencyCode)).formatToParts(1234.56)
+    formatCurrencyParts(currencyCode, 1234.56)
   }.getOrNull() ?: return fallback()
 
   var decimal = '.'
