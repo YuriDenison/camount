@@ -6,30 +6,34 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CA0001A1 /* Camount in Frameworks */ = {isa = PBXBuildFile; productRef = CA0001A0 /* Camount */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		CA8B39BF01595F42881FED86 /* Camount.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camount.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA0000FF /* CamountSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CamountSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4642A279C93530EBF7CCE89D /* Exceptions for "iosApp" folder in "iosApp" target */ = {
+		CA000101 /* Exceptions for "CamountSample" folder in "CamountSample" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = D743EB818B0B8794F31B7F60 /* iosApp */;
+			target = CA000200 /* CamountSample */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		83C64FAF2504641B2AE65E92 /* iosApp */ = {
+		CA000102 /* CamountSample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				4642A279C93530EBF7CCE89D /* Exceptions for "iosApp" folder in "iosApp" target */,
+				CA000101 /* Exceptions for "CamountSample" folder in "CamountSample" target */,
 			);
-			path = iosApp;
+			path = CamountSample;
 			sourceTree = "<group>";
 		};
-		BEA5C30C69C333193D1FF7D9 /* Configuration */ = {
+		CA000103 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Configuration;
 			sourceTree = "<group>";
@@ -37,29 +41,30 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		46B7912CFFBB28F6477F549A /* Frameworks */ = {
+		CA000300 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA0001A1 /* Camount in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C2E88879F2248068068A2A0D = {
+		CA000104 = {
 			isa = PBXGroup;
 			children = (
-				BEA5C30C69C333193D1FF7D9 /* Configuration */,
-				83C64FAF2504641B2AE65E92 /* iosApp */,
-				7D3E3A7CB7085669F281F532 /* Products */,
+				CA000103 /* Configuration */,
+				CA000102 /* CamountSample */,
+				CA000105 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7D3E3A7CB7085669F281F532 /* Products */ = {
+		CA000105 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CA8B39BF01595F42881FED86 /* Camount.app */,
+				CA0000FF /* CamountSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,65 +72,69 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D743EB818B0B8794F31B7F60 /* iosApp */ = {
+		CA000200 /* CamountSample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7B0595CD8EDBC1A30F518656 /* Build configuration list for PBXNativeTarget "iosApp" */;
+			buildConfigurationList = CA000401 /* Build configuration list for PBXNativeTarget "CamountSample" */;
 			buildPhases = (
-				F991AEAB448E58F094452598 /* Compile Kotlin Framework */,
-				ADC5F55D2E8918A425B22B19 /* Sources */,
-				46B7912CFFBB28F6477F549A /* Frameworks */,
-				09C4C5B6DD51208C622AE7F0 /* Resources */,
+				CA000301 /* Compile Kotlin Framework */,
+				CA000302 /* Sources */,
+				CA000300 /* Frameworks */,
+				CA000303 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				83C64FAF2504641B2AE65E92 /* iosApp */,
+				CA000102 /* CamountSample */,
 			);
-			name = iosApp;
+			name = CamountSample;
 			packageProductDependencies = (
+				CA0001A0 /* Camount */,
 			);
-			productName = iosApp;
-			productReference = CA8B39BF01595F42881FED86 /* Camount.app */;
+			productName = CamountSample;
+			productReference = CA0000FF /* CamountSample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		35A92D7D4488D1D4359A5AB5 /* Project object */ = {
+		CA000000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					D743EB818B0B8794F31B7F60 = {
+					CA000200 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = A40C01C6074C99B88EFB8297 /* Build configuration list for PBXProject "iosApp" */;
+			buildConfigurationList = CA000400 /* Build configuration list for PBXProject "CamountSample" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = C2E88879F2248068068A2A0D;
+			mainGroup = CA000104;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CA000500 /* XCLocalSwiftPackageReference "../../camount-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7D3E3A7CB7085669F281F532 /* Products */;
+			productRefGroup = CA000105 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D743EB818B0B8794F31B7F60 /* iosApp */,
+				CA000200 /* CamountSample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		09C4C5B6DD51208C622AE7F0 /* Resources */ = {
+		CA000303 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +144,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F991AEAB448E58F094452598 /* Compile Kotlin Framework */ = {
+		CA000301 /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -152,12 +161,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :samples:shared-compose:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/../..\"\n./gradlew :samples:shared-compose:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		ADC5F55D2E8918A425B22B19 /* Sources */ = {
+		CA000302 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -167,9 +176,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0FA39219BA2DAECB5AF532F7 /* Debug */ = {
+		CA000600 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = BEA5C30C69C333193D1FF7D9 /* Configuration */;
+			baseConfigurationReferenceAnchor = CA000103 /* Configuration */;
 			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -221,7 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -232,9 +241,9 @@
 			};
 			name = Debug;
 		};
-		A18EF8D600E6F3165243F9FC /* Release */ = {
+		CA000601 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = BEA5C30C69C333193D1FF7D9 /* Configuration */;
+			baseConfigurationReferenceAnchor = CA000103 /* Configuration */;
 			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -280,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -290,7 +299,7 @@
 			};
 			name = Release;
 		};
-		54B1B2F2E7A1F5598BADAD87 /* Debug */ = {
+		CA000602 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -298,11 +307,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CamountSample/Preview Content\"";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared-compose/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = CamountSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,13 +325,18 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"SampleShared",
+				);
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		01BD56E854A592D026CF143D /* Release */ = {
+		CA000603 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -326,11 +344,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CamountSample/Preview Content\"";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared-compose/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = CamountSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +361,11 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"SampleShared",
 				);
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -349,25 +376,39 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A40C01C6074C99B88EFB8297 /* Build configuration list for PBXProject "iosApp" */ = {
+		CA000400 /* Build configuration list for PBXProject "CamountSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0FA39219BA2DAECB5AF532F7 /* Debug */,
-				A18EF8D600E6F3165243F9FC /* Release */,
+				CA000600 /* Debug */,
+				CA000601 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7B0595CD8EDBC1A30F518656 /* Build configuration list for PBXNativeTarget "iosApp" */ = {
+		CA000401 /* Build configuration list for PBXNativeTarget "CamountSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				54B1B2F2E7A1F5598BADAD87 /* Debug */,
-				01BD56E854A592D026CF143D /* Release */,
+				CA000602 /* Debug */,
+				CA000603 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		CA000500 /* XCLocalSwiftPackageReference "../../camount-swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../camount-swift;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA0001A0 /* Camount */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Camount;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 35A92D7D4488D1D4359A5AB5 /* Project object */;
+	rootObject = CA000000 /* Project object */;
 }
