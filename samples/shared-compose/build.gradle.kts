@@ -25,6 +25,12 @@ kotlin {
     }
   }
 
+  jvm("desktop") {
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_11)
+    }
+  }
+
   sourceSets {
     commonMain.dependencies {
       implementation(project(":camount"))

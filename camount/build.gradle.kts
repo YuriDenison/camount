@@ -21,6 +21,12 @@ kotlin {
   iosArm64()
   iosSimulatorArm64()
 
+  jvm("desktop") {
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_11)
+    }
+  }
+
   sourceSets {
     commonMain.dependencies {
       implementation(compose.runtime)

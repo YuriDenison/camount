@@ -15,6 +15,7 @@ The library ships in two flavors that share the same behavior and visual languag
 - [`/camount-swift`](./camount-swift) — Swift Package (native iOS).
 - [`/samples/shared-compose`](./samples/shared-compose) — cross-platform Compose demo screen reused by Android/iOS/Desktop/Web samples.
 - [`/samples/android`](./samples/android) — Android sample app.
+- [`/samples/desktop`](./samples/desktop) — Desktop (JVM) sample app.
 - [`/samples/ios`](./samples/ios) — iOS sample app (shows both the Compose demo and the native SwiftUI demo side by side).
 
 ## Build and Run — Compose / Kotlin targets
@@ -27,7 +28,15 @@ The library ships in two flavors that share the same behavior and visual languag
 
 ### Desktop (JVM)
 
-The Compose sample screen is shared; wire it into a desktop entry point under `samples/shared-compose` if you want a standalone desktop run.
+```shell
+./gradlew :samples:desktop:run
+```
+
+To produce a native installer (dmg/msi/deb):
+
+```shell
+./gradlew :samples:desktop:packageDistributionForCurrentOS
+```
 
 ### Web (Wasm / JS)
 
