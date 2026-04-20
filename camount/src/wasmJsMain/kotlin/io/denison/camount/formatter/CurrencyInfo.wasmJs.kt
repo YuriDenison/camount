@@ -2,64 +2,74 @@
 
 package io.denison.camount.formatter
 
+import kotlin.js.JsAny
+import kotlin.js.JsArray
+import kotlin.js.JsName
+import kotlin.js.definedExternally
+import kotlin.js.get
+
+private external interface IntlNumberFormatPart : JsAny {
+  val type: String
+  val value: String
+}
+
+@JsName("Intl.NumberFormat")
+private external class IntlNumberFormat(
+  locales: JsAny? = definedExternally,
+  options: JsAny? = definedExternally,
+) : JsAny {
+  fun formatToParts(value: Double): JsArray<IntlNumberFormatPart>
+}
+
+private fun currencyOptions(code: String): JsAny =
+  js("({ style: 'currency', currency: code })")
+
 internal actual fun currencyInfo(currencyCode: String): CurrencyInfo {
-  val raw = formatToPartsString(currencyCode)
+  val parts = runCatching {
+    IntlNumberFormat(options = currencyOptions(currencyCode)).formatToParts(1234.56)
+  }.getOrNull() ?: return fallback()
+
   var decimal = '.'
   var grouping = ','
+  var fractionDigits = 2
   val prefix = StringBuilder()
   val suffix = StringBuilder()
-  var fractionDigits = 2
-  val groupingSize = 3
-  var seenIntegerOrFraction = false
+  var seenNumber = false
 
-  for ((type, value) in parseTokens(raw)) {
-    when (type) {
-      "decimal" -> decimal = value.firstOrNull() ?: '.'
-      "group" -> grouping = value.firstOrNull() ?: ','
-      "integer" -> seenIntegerOrFraction = true
+  for (i in 0 until parts.length) {
+    val part = parts[i] ?: continue
+    when (part.type) {
+      "decimal" -> decimal = part.value.firstOrNull() ?: '.'
+      "group" -> grouping = part.value.firstOrNull() ?: ','
+      "integer" -> seenNumber = true
       "fraction" -> {
-        fractionDigits = value.length
-        seenIntegerOrFraction = true
+        fractionDigits = part.value.length
+        seenNumber = true
       }
       "currency", "literal" -> {
-        if (seenIntegerOrFraction) suffix.append(value) else prefix.append(value)
+        if (seenNumber) suffix.append(part.value) else prefix.append(part.value)
       }
     }
   }
+
   return CurrencyInfo(
     decimalSeparator = decimal,
     groupingSeparator = grouping,
     prefix = prefix.toString().sanitizeBidi(),
     suffix = suffix.toString().sanitizeBidi(),
-    groupingSize = groupingSize,
+    groupingSize = 3,
     maximumFractionDigits = fractionDigits,
   )
 }
 
-private fun formatToPartsString(currencyCode: String): String = js(
-  """
-  (function() {
-    try {
-      var fmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode });
-      var parts = fmt.formatToParts(1234.56);
-      return parts.map(function(p) { return p.type + '\u0001' + p.value; }).join('\u0002');
-    } catch (e) {
-      return '';
-    }
-  })()
-  """,
+private fun fallback() = CurrencyInfo(
+  decimalSeparator = '.',
+  groupingSeparator = ',',
+  prefix = "",
+  suffix = "",
+  groupingSize = 3,
+  maximumFractionDigits = 2,
 )
-
-private fun parseTokens(raw: String): List<Pair<String, String>> {
-  if (raw.isEmpty()) return emptyList()
-  val result = ArrayList<Pair<String, String>>()
-  for (entry in raw.split('\u0002')) {
-    val sep = entry.indexOf('\u0001')
-    if (sep < 0) continue
-    result += entry.substring(0, sep) to entry.substring(sep + 1)
-  }
-  return result
-}
 
 private fun String.sanitizeBidi(): String = buildString(length) {
   for (c in this@sanitizeBidi) {
