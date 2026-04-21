@@ -10,6 +10,7 @@ plugins {
   alias(libs.plugins.kotlinMultiplatform) apply false
   alias(libs.plugins.kotlinParcelize) apply false
   alias(libs.plugins.ktlint) apply false
+  alias(libs.plugins.vanniktechMavenPublish) apply false
 }
 
 subprojects {

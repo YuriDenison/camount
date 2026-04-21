@@ -1,3 +1,6 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SourcesJar
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -6,6 +9,7 @@ plugins {
   alias(libs.plugins.androidKmpLibrary)
   alias(libs.plugins.composeMultiplatform)
   alias(libs.plugins.composeCompiler)
+  alias(libs.plugins.vanniktechMavenPublish)
 }
 
 kotlin {
@@ -44,4 +48,17 @@ kotlin {
       implementation(libs.androidx.compose.ui.tooling)
     }
   }
+}
+
+mavenPublishing {
+  publishToMavenCentral()
+  if (project.hasProperty("signingInMemoryKey")) {
+    signAllPublications()
+  }
+  configure(
+    KotlinMultiplatform(
+      javadocJar = JavadocJar.Empty(),
+      sourcesJar = SourcesJar.Sources(),
+    ),
+  )
 }

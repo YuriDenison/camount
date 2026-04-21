@@ -78,6 +78,35 @@ cd camount-swift && swift test
 
 See [`camount-swift/PARITY.md`](./camount-swift/PARITY.md) for the public-API mapping between the Compose widgets and their Swift counterparts.
 
+## Publishing
+
+The Compose Multiplatform library modules (`:camount`, `:camount-view`, `:camount-view-databinding`) are published to Maven Central under `io.github.yuridenison`.
+
+```kotlin
+implementation("io.github.yuridenison:camount:0.9.1")
+implementation("io.github.yuridenison:camount-view:0.9.1")
+implementation("io.github.yuridenison:camount-view-databinding:0.9.1")
+```
+
+### Releasing
+
+CI publishes on tag push (`v*`) — see [`.github/workflows/publish.yml`](./.github/workflows/publish.yml). Required repository secrets: `MAVEN_CENTRAL_USERNAME`, `MAVEN_CENTRAL_PASSWORD` (Central Portal user token), `SIGNING_IN_MEMORY_KEY` (ASCII-armored GPG private key), `SIGNING_IN_MEMORY_KEY_PASSWORD`.
+
+For a local publish (e.g. dry-run into `~/.m2`), place the same four values in `~/.gradle/gradle.properties`:
+
+```properties
+mavenCentralUsername=<central portal token username>
+mavenCentralPassword=<central portal token password>
+signingInMemoryKey=<ASCII-armored GPG private key; escape newlines as \n>
+signingInMemoryKeyPassword=<key passphrase>
+```
+
+Then:
+
+```shell
+./gradlew publishToMavenLocal --no-configuration-cache
+```
+
 ---
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) and [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform).
