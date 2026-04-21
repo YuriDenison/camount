@@ -121,7 +121,7 @@
 			mainGroup = CA000104;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				CA000500 /* XCLocalSwiftPackageReference "../../camount-swift" */,
+				CA000500 /* XCLocalSwiftPackageReference "../.." */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CA000105 /* Products */;
@@ -397,9 +397,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		CA000500 /* XCLocalSwiftPackageReference "../../camount-swift" */ = {
+		CA000500 /* XCLocalSwiftPackageReference "../.." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../camount-swift;
+			relativePath = ../..;
 		};
 /* End XCLocalSwiftPackageReference section */
 

@@ -1,0 +1,23 @@
+name: Swift CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Package.swift'
+      - 'camount-swift/**'
+      - '.github/workflows/swift.yml'
+  pull_request:
+    paths:
+      - 'Package.swift'
+      - 'camount-swift/**'
+      - '.github/workflows/swift.yml'
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: swift test
+        run: swift test

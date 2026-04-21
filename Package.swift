@@ -12,12 +12,12 @@ let package = Package(
   targets: [
     .target(
       name: "Camount",
-      path: "Sources/Camount"
+      path: "camount-swift/Sources/Camount"
     ),
     .testTarget(
       name: "CamountTests",
       dependencies: ["Camount"],
-      path: "Tests/CamountTests"
+      path: "camount-swift/Tests/CamountTests"
     ),
   ]
 )

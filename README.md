@@ -66,12 +66,29 @@ Open [`/samples/ios`](./samples/ios) in Xcode and run the app — the `CmpDemo` 
 `camount-swift` is a Swift Package that can be consumed directly or through the sample app.
 
 - Open [`/samples/ios`](./samples/ios) in Xcode and run — the `NativeDemo` tab hosts `AmountText` / `AmountField` rendered entirely by the Swift pipeline.
-- Or integrate as a Swift package by pointing at `./camount-swift` (`swift-tools-version:5.9`, iOS 16+).
 
-Package tests:
+### Swift Package Manager
+
+Add Camount as a dependency in your `Package.swift`:
+
+```swift
+.package(url: "https://github.com/yuridenison/camount.git", from: "0.9.1")
+```
+
+Then list it in your target's dependencies:
+
+```swift
+.product(name: "Camount", package: "camount")
+```
+
+Or via Xcode: **File → Add Package Dependencies → `https://github.com/yuridenison/camount`**, pinned to exact version `0.9.1`.
+
+Swift and Compose Multiplatform releases share the same tag (`v0.9.1`). Minimum platform: iOS 16; `swift-tools-version:5.9`.
+
+Package tests (from repo root):
 
 ```shell
-cd camount-swift && swift test
+swift test
 ```
 
 ## API parity
