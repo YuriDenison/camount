@@ -1,0 +1,75 @@
+{
+  "name": "@yuridenison/camount",
+  "version": "0.9.1",
+  "description": "Animated currency/amount formatter widget — per-character stack animations, field-aware styling, Web Component + React.",
+  "type": "module",
+  "sideEffects": [
+    "./dist/**",
+    "./src/index.ts",
+    "./src/react.ts",
+    "./src/elements/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuridenison/camount.git",
+    "directory": "camount-js"
+  },
+  "homepage": "https://github.com/yuridenison/camount",
+  "bugs": "https://github.com/yuridenison/camount/issues",
+  "author": "Yuri Denison <yuri.denison@gmail.com>",
+  "license": "Apache-2.0",
+  "keywords": [
+    "amount",
+    "currency",
+    "formatter",
+    "animation",
+    "web-component",
+    "react"
+  ],
+  "peerDependencies": {
+    "react": ">=18 <20"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.7",
+    "happy-dom": "^15.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
