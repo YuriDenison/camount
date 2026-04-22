@@ -3,15 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Camount — Compose for Web</title>
+  <title>Camount — Web Demo</title>
+  <link rel="stylesheet" href="native/camount-native.css">
   <style>
     html, body { margin: 0; padding: 0; height: 100%; background: #F7F7FB; overflow: hidden; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    #ComposeTarget { width: 100vw; height: 100vh; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    #Tabs {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px 4px;
+      gap: 8px;
+      background: #F7F7FB;
+      border-bottom: 1px solid #E0E1EC;
+    }
+    #Tabs button {
+      flex: 0 1 120px;
+      padding: 8px 16px;
+      border: 1px solid #E0E1EC;
+      background: #fff;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #5A5E80;
+      cursor: pointer;
+    }
+    #Tabs button.active {
+      background: #4049FF;
+      color: #fff;
+      border-color: #4049FF;
+    }
+    #Panels {
+      flex: 1 1 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel {
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      visibility: hidden;
+    }
+    .panel.active { visibility: visible; }
+    #NativeTarget { width: 100%; min-height: 100%; }
+    #ComposeTarget { width: 100%; height: 100%; }
   </style>
 </head>
 <body>
-  <div id="ComposeTarget"></div>
+  <nav id="Tabs" role="tablist">
+    <button id="TabNative" type="button" role="tab" aria-controls="PanelNative" aria-selected="true" class="active">Native</button>
+    <button id="TabCmp" type="button" role="tab" aria-controls="PanelCmp" aria-selected="false">CMP</button>
+  </nav>
+  <div id="Panels">
+    <div id="PanelNative" class="panel active" role="tabpanel" aria-labelledby="TabNative">
+      <div id="NativeTarget"></div>
+    </div>
+    <div id="PanelCmp" class="panel" role="tabpanel" aria-labelledby="TabCmp">
+      <div id="ComposeTarget"></div>
+    </div>
+  </div>
+
+  <script type="module" src="native/camount-native.js"></script>
   <script src="camount-web.js"></script>
+  <script>
+    (function () {
+      var tabNative = document.getElementById("TabNative");
+      var tabCmp = document.getElementById("TabCmp");
+      var panelNative = document.getElementById("PanelNative");
+      var panelCmp = document.getElementById("PanelCmp");
+
+      function activate(which) {
+        var isNative = which === "native";
+        tabNative.classList.toggle("active", isNative);
+        tabCmp.classList.toggle("active", !isNative);
+        tabNative.setAttribute("aria-selected", String(isNative));
+        tabCmp.setAttribute("aria-selected", String(!isNative));
+        panelNative.classList.toggle("active", isNative);
+        panelCmp.classList.toggle("active", !isNative);
+      }
+
+      tabNative.addEventListener("click", function () { activate("native"); });
+      tabCmp.addEventListener("click", function () { activate("cmp"); });
+    }());
+  </script>
 </body>
 </html>

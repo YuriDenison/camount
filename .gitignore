@@ -19,4 +19,6 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
+samples/web/src/wasmJsMain/resources/native/
+samples/web-react/dist/
 
